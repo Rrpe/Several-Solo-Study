@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>setInterval 메서드</title>
+<script language="javascript">
+var num = 0;
+	var interval = setInterval(sayHello, 1000);
+	function sayHello()
+	{
+		alert("안녕하세요? setInterval 메서드가 실행해 준 함수입니다.");
+		num++;
+		if(num == 5)
+		{
+			clearInterval(interval);
+		}
+	}
+	
+</script>
+</head>
+
+<body>
+
+</body>
+</html>

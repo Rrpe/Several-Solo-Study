@@ -1,0 +1,11 @@
+ <Context> 
+     <Resource name="jdbc/OracleDB" 
+         auth="Container"
+         type="javax.sql.DataSource" 
+         username="bitna" 
+         password="bitna"
+         driverClassName="oracle.jdbc.driver.OracleDriver"
+         url="jdbc:oracle:thin:@localhost:1521:orcl"
+         maxActive="500" 
+         maxIdle="100"/>  
+ </Context>

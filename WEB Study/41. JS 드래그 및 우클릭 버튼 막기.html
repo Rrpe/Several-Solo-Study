@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>드래그와 마우스 우클릭 버튼 막기</title>
+
+<script type="text/javascript">
+function blockRightClick() {
+	alert("오른쪽 버튼은 사용할 수 없습니다.");
+	return false;
+}
+
+function blockSelect() {
+	alert("내용을 선택할 수 없습니다.");
+	return false;
+}
+</script> 
+</head>
+
+<body onselectstart="return blockSelect()"
+	oncontextmenu="return blockRightClick()">
+	<h2>마우스 오른쪽 버튼과 내용 선택 막기</h2>
+	<div>마우스 오른쪽 버튼을 클릭하거나 드래그 해서 내용을 선택해 보세요.</div>
+</body>
+</html>

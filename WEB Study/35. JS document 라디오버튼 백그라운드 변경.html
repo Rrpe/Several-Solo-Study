@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>라디오버튼으로 배경화면 변경</title>
+</head>
+
+<body>
+<input type = "radio" name="bgColor" value = "yellow" onclick="Color(this.value)">노란색<br>
+<input type = "radio" name="bgColor" value = "green" onclick="Color(this.value)">녹색<br>
+<input type = "radio" name="bgColor" value = "blue" onclick="Color(this.value)">파란색<br>
+<input type = "radio" name="bgColor" value = "red" onclick="Color(this.value)">빨간색<br>
+
+<script type="text/javascript">
+
+function Color(i) {
+	document.bgColor = i;
+}
+
+</script>
+</body>
+</html>

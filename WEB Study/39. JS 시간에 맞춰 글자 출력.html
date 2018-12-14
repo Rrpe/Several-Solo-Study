@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title> 시간에 맞춰 글자 출력 </title>
+</head>
+
+<body onload="showNotice()">
+<div id="divNotice" class="notice">
+</div>
+	
+</body>
+<script type="text/javascript">
+	var noticeMsg = "안녕하세요? 만나서 반갑습니다.";
+	var index = 0;
+	
+		function showNotice() {
+			index++;
+			var divNotice = document.getElementById("divNotice");
+			if (index > noticeMsg.length) {
+				divNotice.innerText = " ";
+				index = 0;
+			} else {
+				divNotice.innerText = noticeMsg.substr(0, index)
+			}
+			
+			setTimeout(showNotice, 500);
+			var msg = "현재 시간: " 
+		}
+</script>
+</html>

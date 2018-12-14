@@ -1,0 +1,290 @@
+<html>
+<head>
+<title>회원 가입 유효성 검사</title>
+</head>
+<script language="javascript">
+
+	function validate() 
+	{
+		var regExp1 = /^[a-zA-Z0-9]{4,12}$/;	//id와 비밀번호의 유효성 검사
+		var regExp2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;	//e-mail의 유효성 검사
+		var regExpName = /^[가-힝]{2,}$/;		//이름의 유효성 검사
+		
+		var id = document.getElementById("my_id");		//아이디의 id값
+		var password = document.getElementById("my_password");	//비밀번호의 id값
+		var chkpassword = document.getElementById("my_chkpassword")	 //비밀번호확인의 id값
+		var email = document.getElementById("my_mail");		//e-mail의 id값
+		var name = document.getElementById("my_name");
+		
+		if(!regExp1.test(id.value))  //아이디 유효성 검사 후 4~12자의 영문 대소문자와 숫자의 유효성이 안 맞다면 공백을 주고 알람을 띄운다.
+		{
+			alert("형식에 맞춰 ID를 입력하시오.");
+			id.value = "";
+			id.focus();		// 버튼 - 엔터키를 눌러 버튼 클릭, 텍스트 - 커서 위치를 이동시켜 바로 입력되게 해줌. 
+			return false;
+		}
+		else if(!regExp1.test(password.value))
+		{
+			alert("형식에 맞춰 PASSWORD를 입력하시오.");
+			password.value = "";
+			password.focus();
+			return false;
+		}
+		else if (!((chkpassword.value).slice(0, (chkpassword.value).length) === (password.value).slice(0, (password.value).length)))
+			//slice는 배열을 0부터 chkpassword길이까지 문자열을 가져옴
+        {
+            alert("비밀번호가 동일하지 않습니다.");
+            chkpassword.value = "";
+            chkpassword.focus();
+            return false;
+        } 
+		else if (((chkpassword.value).slice(0, (chkpassword.value).length) === (id.value).slice(0, (id.value).length))) 
+        {
+            alert("비밀번호가 ID와 동일하면 안됩니다.");
+            password.value = "";
+            password.focus();
+            chkpassword.value = "";
+            chkpassword.focus();
+            return false;
+        }
+        else if (!regExp2.test(email.value))
+        {
+            alert("올바른 이메일 형식이 아닙니다.");
+            email.value = "";
+            email.focus();
+            return false;
+        }
+        else if (!regExpName.test(name.value))
+        {
+            alert("이름을 제대로 입력하세요");
+            name.value = "";
+            name.focus();
+            return false;
+        } 
+        else
+        {
+            if(check())
+            {
+               alert("회원가입을 진행합니다");
+               return true;
+            }
+            else
+            {
+               return false;
+            }
+        }
+    }		
+	
+		 //주민등록번호 유효성 검사
+        function check_peopleNum() 
+		{
+            var peopleNum = document.getElementById("my_people_num1").value + document.getElementById("my_people_num2").value;
+            //my_people_num1 = 주민번호 앞자리
+            //my_people_num2 = 주민번호 뒷자리
+            var chkpeopleNum = /^\d{6}[1234]\d{6}$/;  
+            
+            if (!chkpeopleNum.test(peopleNum)) {
+                return false;
+            }
+
+            var birthYear = (peopleNum.charAt(6) <= "2") ? "19" : "20";
+            birthYear += peopleNum.substr(0, 2);
+            var birthMonth = peopleNum.substr(2, 2) - 1;
+            var birthDate = peopleNum.substr(4, 2);
+            var birth = new Date(birthYear, birthMonth, birthDate);
+
+            if (birth.getYear() % 100 != peopleNum.substr(0, 2) ||
+                  birth.getMonth() != birthMonth ||
+                  birth.getDate() != birthDate) {
+
+                return false;
+            }
+
+
+            var buf = new Array(13);
+            for (var i = 0; i < 13; i++)
+            	buf[i] = parseInt(peopleNum.charAt(i));
+
+            multipliers = [2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5];
+            for (var sum = 0, i = 0; i < 12; i++)
+            	sum += (buf[i] *= multipliers[i]);
+
+            if ((11 - (sum % 11)) % 10 != buf[12])
+            {
+                return false;
+            }
+
+            return true;
+        }
+		 
+        function check() {
+            if (check_peopleNum()) {
+                alert("올바른 주민등록번호입니다.");
+                var year1 = document.getElementById("year");
+           
+                var num1 = document.getElementById("my_people_num1");
+                var num2 = num1.value;
+                var num3 = num2.substring(0, 2);	//substring - 배열 0부터 시작해서 2앞에까지 출력
+                var num4 = num2.substring(2, 4);	//substring - 배열 2부터 시작해서 4앞에까지 출력
+                var num5 = num2.substring(4, 6);	//substring - 배열 4부터 시작해서 6앞에까지 출력
+                
+            
+                
+                year1.value = "19" + num3;		// 주민번호 앞 두자리 뽑아와 그 앞에 19 추가
+          
+                document.data.mon.value = num4;		// body부분의 드롭다운인 월(mon)부분을 주민번호 체크 성공시 자동으로 변경
+                document.data.day.value = num5; 	// body부분의 드롭다운인 일(day)부분을 주민번호 체크 성공시 자동으로 변경   
+                return true;
+                
+            }
+            else
+               var num1 = document.getElementById("my_people_num1");
+               var num2 = document.getElementById("my_people_num2");        
+                alert("똑바로 입력하세요");
+                num1.value = "";
+                num1.focus();
+                num2.value = "";
+
+            return false;
+        }//주민번호 유효성 검사 끝
+
+
+
+
+</script>
+<body>
+	<form action="MAILTO:kel_777@naver.com?subject=[s]"
+		method="post" 
+		name="data"
+		onsubmit="return validate()">
+
+		<table name="data" style="border-collapse: collapse;" cellpadding="5"
+			cellspacing="1" border="1" align="center">
+
+			<tr>
+				<th bgcolor="#B2EBF4" colspan="2" align="center">
+				<font color="#000000" size="4"> 회원 기본 정보 </th>
+			</tr>
+
+			<tr>
+				<th>아이디:</th>
+				<td><input type="text" id="my_id" size="20" minlength="4"
+					maxlength="12"> 4~12자의 영문 대소문자와 숫자로만 입력</td>
+			</tr>
+
+			<tr>
+				<th>비밀번호:</th>
+				<td><input type="password" size="20" id="my_password"
+					minlength="4" maxlength="12"> 4~12자의 영문 대소문자와 숫자로만 입력</td>
+			</tr>
+
+			<tr>
+				<th>비밀번호확인:</th>
+				<td><input type="password" size="20" id="my_chkpassword"
+					minlength="4" maxlength="12"></td>
+			</tr>
+
+			<tr>
+				<th>메일주소:</th>
+				<td><input type="text" size="25" id="my_mail" maxlength="25">
+					예) id@domain.com</td>
+			</tr>
+
+			<tr>
+				<th>이름:</th>
+				<td><input type="text" size="25" id="my_name" maxlength="12">
+				</td>
+			</tr>
+
+			<tr>
+				<th bgcolor="#B2EBF4" colspan="3" align="center">
+				<font color="#000000" size="4">개인 신상 정보 </th>
+			</tr>
+
+			<tr>
+				<th>주민등록번호:</th>
+				<td><input type="text" size="15" id="my_people_num1" maxlength="6">-<input type="password" size="15" id="my_people_num2" maxlength="7">
+					예) 111111-1111111</td>
+			</tr>
+
+			<tr>
+				<th>생일:</th>
+				<td><input type="text" size="10" name="my_birth" id="year" maxlength="4">년
+					<select name="mon">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">6</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+				</select>월
+				 <select name="day">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15">15</option>
+						<option value="16">16</option>
+						<option value="17">17</option>
+						<option value="18">18</option>
+						<option value="19">19</option>
+						<option value="20">20</option>
+						<option value="21">21</option>
+						<option value="22">22</option>
+						<option value="23">23</option>
+						<option value="24">24</option>
+						<option value="25">25</option>
+						<option value="26">26</option>
+						<option value="27">27</option>
+						<option value="28">28</option>
+						<option value="29">29</option>
+						<option value="30">30</option>
+						<option value="31">31</option>
+				</select>일</td>
+			</tr>
+
+			<tr>
+				<th>관심분야:</th>
+				<td><input type="checkbox" name="object" value="컴퓨터">컴퓨터
+					<input type="checkbox" name="object" value="인터넷">인터넷 
+					<input type="checkbox" name="object" value="여행">여행 
+					<input type="checkbox" name="object" value="영화감상">영화감상 
+					<input type="checkbox" name="object" value="음악감상">음악감상</td>
+			</tr>
+
+			<tr>
+				<th>자기소개:</th>
+				<td>
+				<textarea style="height: 200px; width: 500px;" col="50">
+				</textarea>
+				</td>
+			</tr>
+
+		</table>
+
+		<table align="center">
+			<tr>
+				<td colspan="2"><input type="submit" value="회원 하기" style="border-radius:5px;"> 
+				<input type="reset" value="다시 입력" style="border-radius:5px;"></td>
+			</tr>
+		</table>
+
+	</form>
+</body>
+</html>

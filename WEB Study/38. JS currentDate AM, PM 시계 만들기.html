@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title> PM, AM 시계 만들기 </title>
+</head>
+
+<body onload="showClock()">
+<div id="divClock" class="clock">
+</div>
+	
+</body>
+<script type="text/javascript">
+		function showClock() {
+			var currentDate = new Date();
+			var divClock = document.getElementById("divClock");
+			
+			var msg = "현재 시간: " 
+			
+//			(currentDate.getHours() >= 12 ? "PM ": "AM ")
+			if(currentDate.getHours() >= 12) {
+				msg += "PM ";
+				msg += (currentDate.getHours()-12)+"시 ";
+			} else {
+				msg += "AM "
+				msg += currentDate.getHours() + "시 ";
+			}
+			
+			msg += currentDate.getMinutes() + "분 ";
+			msg += currentDate.getSeconds() + "초 ";
+			
+			divClock.innerText = msg;
+			
+			setTimeout(showClock, 1000);
+		}
+</script>
+</html>

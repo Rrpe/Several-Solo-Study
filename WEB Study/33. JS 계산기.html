@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>계산기</title>
+<script language="javascript">
+var One = null;  // 첫번째 숫자 텍스트필드
+var Two = null;  // 두번째 숫자 텍스트필드
+var OperTemp1;	 // 연산자 보관 
+var OperTemp2;	 // 연산자 보관
+ 
+function NumInput(num) {  // 숫자 패드 입력
+    var objText = document.getElementById("mainText");
+ 
+        objText.value = objText.value + num;
+}
+
+function OperOne(oper) {  // +, -, *, /, ^ 연산자 입력
+    var objText = document.getElementById("mainText");
+    OperTemp1 = oper;	// oper를 통해 들어온 연산자를 OperTemp1에 저장
+ 
+     One = objText.value;	// One에 처음 입력한 텍스트 필드 값 저장
+     objText.value = "";	// 텍스트 필드 초기화
+ 
+}
+
+function numSubmit() {  // Ruselt(=) 입력부분
+    var objText = document.getElementById("mainText");
+ 
+    Two = objText.value;	// Two에 두번째로 입력한 텍스트 필드 값 저장
+    
+    switch (OperTemp1) {	// OperOne()에서 받아온 연산자를 구분하여 연산 실행
+    case '+':	// 덧셈
+        objText.value = parseFloat(One) + parseFloat(Two);		// parseFloat(parseInt) 실수(정수)값으로 변환시켜줌.
+        break;
+    case '-':	// 뺄셈
+        objText.value = parseFloat(One) - parseFloat(Two);
+        break;
+    case '*':	// 곱셈
+        objText.value = parseFloat(One) * parseFloat(Two);
+        break;
+    case '/':	// 나눗셈
+        objText.value = parseFloat(One) / parseFloat(Two);
+        break;
+    case 'x^y':	// 제곱승
+        objText.value = Math.pow(parseFloat(One), parseFloat(Two));
+        break;
+    default:
+        break;
+    }
+ 
+}
+
+function OperTwo(oper) {  // +/-, sin, cos, tan 연산자 입력
+    var objText = document.getElementById("mainText");
+    
+    OperTemp2 = oper;	// oper를 통해 들어온 연산자를 OperTemp2에 저장
+    One = objText.value;	// One에 처음 입력한 텍스트 필드 값 저장
+    objText.value = "";		// 텍스트 필드 초기화
+    
+    switch (OperTemp2) {	// OperTwo()에서 받아온 연산자를 구분하여 연산 실행
+    case 'sin':	// sin
+        objText.value = Math.sin(parseFloat(One));
+        break;
+    case 'cos':	// cos
+        objText.value = Math.cos(parseFloat(One));
+        break;
+    case 'tan':	// tan
+        objText.value = Math.tan(parseFloat(One));
+        break;
+    case '+/-':	// 절대값
+        objText.value = parseFloat(-One);
+        break;
+    default:
+        break;
+    }
+}
+</script>
+</head>
+<body>
+<form action="calculadora">
+    <table  width="50%" hight="100" style="text-align: center;" >
+        <tr>
+            <td><input type="text" id="mainText" size="50" value=""></td>	<!-- 텍스트 필드  -->
+        </tr>
+        <tr>
+            <td>
+                <input type="reset" id="reset" value="Clear"  style="width: 80px; height: 40px;">	<!-- 리셋  -->
+                <input onclick="numSubmit()" type="button" id="submit" value="=" style="width: 80px;height: 40px;">		<!-- 결과값 출력  -->
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input onclick="NumInput(1)" type="button" value="1" style="width: 50px; height: 40px;">	<!-- 키패드 1  -->
+                <input onclick="NumInput(2)" type="button" value="2" style="width: 50px; height: 40px;">	<!-- 키패드 2  -->
+                <input onclick="NumInput(3)" type="button" value="3" style="width: 50px; height: 40px;">	<!-- 키패드 3  -->
+                <input onclick="OperOne(this.value)" id="opbtn" type="button" value="+" style="width: 50px; height: 40px; margin-left: 15px; margin-right: 15px;">	<!-- 키패드 +  -->
+                <input onclick="OperOne(this.value)" id="opbtn"type="button" value="x^y" style="width: 50px; height: 40px;">	<!-- 키패드 x^y  -->
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input onclick="NumInput(4)" type="button" value="4" style="width: 50px; height: 40px;">	<!-- 키패드 4  -->
+                <input onclick="NumInput(5)" type="button" value="5" style="width: 50px; height: 40px;">	<!-- 키패드 5  -->
+                <input onclick="NumInput(6)" type="button" value="6" style="width: 50px; height: 40px;">	<!-- 키패드 6  -->
+                <input onclick="OperOne(this.value)" id="opbtn" type="button" value="-" style="width: 50px; height: 40px; margin-left: 15px; margin-right: 15px;">	<!-- 키패드 -  -->
+                <input onclick="OperTwo(this.value)" id="opbtn" type="button" value="sin" style="width: 50px; height: 40px;">	<!-- 키패드 sin  -->
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input onclick="NumInput(7)" type="button" value="7" style="width: 50px; height: 40px;">	<!-- 키패드 7  -->
+                <input onclick="NumInput(8)" type="button" value="8" style="width: 50px; height: 40px;">	<!-- 키패드 8  -->
+                <input onclick="NumInput(9)" type="button" value="9" style="width: 50px; height: 40px;">	<!-- 키패드 9  -->
+                <input onclick="OperOne(this.value)" id="opbtn" type="button" value="*" style="width: 50px; height: 40px; margin-left: 15px; margin-right: 15px;">	<!-- 키패드 *  -->
+                <input onclick="OperTwo(this.value)" id="opbtn" type="button" value="cos" style="width: 50px; height: 40px;">	<!-- 키패드 cos  -->
+            </td>
+        </tr><tr>
+            <td>
+                <input onclick="NumInput(0)" type="button" value="0" style="width: 50px; height: 40px;">	<!-- 키패드 0  -->
+                <input onclick="OperTwo(this.value)"type="button" value="+/-" style="width: 50px; height: 40px;">	<!-- 키패드 +/-  -->
+                <input onclick="NumInput('.')" type="button" value="." style="width: 50px; height: 40px;">	<!-- 키패드 .  -->
+                <input onclick="OperOne(this.value)" id="opbtn" type="button" value="/" style="width: 50px; height: 40px; margin-left: 15px; margin-right: 15px;">	<!-- 키패드 /  -->
+                <input onclick="OperTwo(this.value)" id="opbtn" type="button" value="tan" style="width: 50px; height: 40px;">	<!-- 키패드 tan  -->
+            </td>
+        </tr>
+    </table>
+</form>
+ 
+ 
+</body>
+</html>

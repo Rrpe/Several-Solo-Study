@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+
+<body>
+	<table>
+		<tr>
+			<td><input type="text" id="textField" size="20" value="">
+			</td>
+			<td><input type="button" name="arrayBtn" value="배열에 추가하기"
+				style="width: 100%;" onclick="Aadd()"></td>
+		</tr>
+
+		<tr>
+			<td colspan="2">
+				<label>현재 배열의 값: </label>
+				<input type="text" id="valueField" value="" style="border: none; background: transparent; font-weight: 400; font-size: large;">
+			</td>
+		</tr>
+
+		<tr>
+			<td></td>
+		</tr>
+
+		<tr>
+			<td><input type="button" name="arrayBtn" value="Shift로 꺼내기"
+				style="width: 100%;" onclick="Sshift()"></td>
+			<td><input type="button" name="arrayBtn" value="Pop으로 꺼내기"
+				style="width: 100%;" onclick="Ppop()"></td>
+		</tr>
+
+		<tr>
+			<td><input type="button" name="arrayBtn" value="Reverse로 뒤집기"
+				style="width: 100%;" onclick="Rreverse()"></td>
+			<td><input type="button" name="arrayBtn" value="Sort로 정렬하기"
+				style="width: 100%;" onclick="Ssort()"></td>
+		</tr>
+
+	</table>
+
+	<script type="text/javascript">
+		var num = [];
+		function Aadd() {
+			var objText = document.getElementById("textField");
+			var objPrint = document.getElementById("valueField");
+
+			num.push(objText.value);
+			objText.value = "";
+			
+			objPrint.value = num.toString();
+		}
+
+		function Sshift() {
+			var objPrint = document.getElementById("valueField");
+			num.shift();
+
+			objPrint.value = num.toString();
+		}
+
+		function Ppop() {
+			var objPrint = document.getElementById("valueField");
+			num.pop();
+
+			objPrint.value = num.toString();
+
+		}
+
+		function Rreverse() {
+			var objPrint = document.getElementById("valueField");
+			num.reverse();
+
+			objPrint.value = num.toString();
+
+		}
+
+		function Ssort() {
+			var objPrint = document.getElementById("valueField");
+			num.sort();
+
+			objPrint.value = num.toString();
+		}
+	</script>
+</body>
+</html>

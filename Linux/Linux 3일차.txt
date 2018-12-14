@@ -1,0 +1,169 @@
+yum grouplist
+# rpm: Redhat Package Manager
+# yum: (제어판)
+
+##KDE 설치
+yum grouplist | grep KDE
+#Maybe run: yum groups mark convert (see man yum)
+   KDE Plasma Workspaces
+
+yum groupinstall "KDE Plasma Workspaces"
+#KDE 설치
+#Window로 이동 후 메모장 오픈
+circle.c (확장자 .c로 생성)
+#include <stdio.h>
+
+void main()
+{
+	double pi = 3.141592;
+	int radius = 0;
+
+	printf("반지름을 입력하세요 : ");
+	scanf("%d", &radius);
+
+	double result = pi * radius * radius;
+	printf("반지름 : %d \n", radius);
+	// %전체자릿수, 소수 이하 자릿수
+	printf("넓이 : %7.2f \n", result);
+}
+#WIZSCP 이용해서 /root/source 로 이동
+#리눅스 이동
+cd /root/source/
+gcc circle.c
+ls -la
+./a.out
+#한글이 깨져서 나오면 정상
+#다시 윈도우로 이동
+#circle.c 만든 파일 열어서 저장 할때 유니코드 -> utf-8로 저장
+#옮겨서 다시 컴파일 후 출력
+cat circle.c
+#로그아웃 후 root로 다시 로그인
+#비밀번호 입력구간에서 설정 아이콘 누른뒤 KDE 로 클릭후 체크변경
+#로그인
+# 윈도우 + 스페이스바 하면 한/영 변경
+gedit test.c
+
+//사각형의 가로, 세로 길이를 입력받아 넓이를 계산하는 프로그램
+
+#include <stdio.h>
+
+void main()
+{
+	double width = 0;
+	double height = 0;
+
+	printf("가로 길이 : ");
+	scanf("%lf", &width);
+	printf("세로 길이 : ");
+	scanf("%lf", &height);
+
+	double area = width * height;
+	printf("가로: %7.2f \n", width);
+	printf("세로: %7.2f \n", height);
+	printf("넓이 : %7.2f \n", area);
+}
+#입력 후 저장
+gcc test.c
+./a.out
+
+## 오라클 설치
+# 윈도우 환경에서 https://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/xe-prior-releases-5172097.html
+# Oracle Database 11gR2 Express Edition for Linux x64 다운
+
+cd /home/centos/tomcat/webapps/docs
+ls -la | more
+#파일 많을시 more로 한 페이지식 볼 수 있음.
+
+cd /home/centos
+pwd
+#현재위치 확인
+
+cd~
+# root/~로 이동
+# 로그아웃 후 계정으로 접속
+
+su
+# switch user
+
+su
+su centos
+cd /home/centos
+pwd
+cd ..
+cd ~
+cd /root
+su
+cd /root
+ls -la
+#회원 전환 확인
+
+cd/root/source
+mkdir temp
+cd /temp
+gedit temp.txt
+cd ..
+rm temp
+rm -R temp
+# 폴더삭제
+
+cd /root/source/
+gedit foo.txt
+cp foo.txt foo2.txt
+ls -la foo*
+#파일 복사
+
+touch bar.txt
+#0바이트 짜리 파일 생성
+
+touch corock.txt
+ls -la
+mv corock.txt /home/centos/
+ls -la
+ls -la /home/centos/
+#파일 이동
+
+gedit a.txt
+gedit b.txt
+is -la *.txt
+cat a.txt
+cat b.txt
+cat a.txt b.txt
+#cat 파일안에 내용 찍어냄.
+
+cd /root/source/
+head -5 text.c
+tail -5 test.c
+#head, tail 문
+
+useradd user1
+cd /home
+ls -la /home
+gedit /etc/passwd
+gedit /etc/shadow
+passwd user1
+
+gedit /etc/shadow
+gedit /etc/group
+useradd user2
+gedit /etc/group
+userdel user1
+ls -la
+userdel -r user2
+ls -la
+#사용자 계정 추가 및 삭제
+
+groupadd centosGroup
+tail -5 /etc/group
+useradd -g centosGroup user1
+useradd -g centosGroup user2
+passwd user1
+passwd user2
+tail -5 /etc/passwd
+tail -5 /etc/shadow
+tail -5 /etc/group
+# 사용자 계정 그룹으로 추가
+
+yum -y install system-config-users
+system-config-users
+# 사용자 계정 그룹으로 추가 GUI 버전
+# https://corock.tistory.com/262?category=665097 이거보고 따라하기

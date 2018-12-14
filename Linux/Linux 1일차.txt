@@ -1,0 +1,42 @@
+#Linux
+VMWARE - centOS
+
+#~사용자 디렉토리
+#. 현재 디렉토리
+#.. 상위 디렉토리
+
+#리눅스 root 에서 ~은 윈도우에서 C:\Users\Kim Junsoo
+
+#root 계정 가는법
+su
+
+#C컴파일을 하기위한 설치 파일
+yum install gcc
+yum install gcc-c++
+gcc --version
+
+#폴더 생성 (Make Directory)
+mkdir
+mkdir /root/source
+g
+#폴더 변경(Change Directory)
+cd
+cd /root/source
+
+#현재 디렉토리 위치를 알려줌
+pwd
+
+# .c 확장자명 파일 생성 하기
+gedit hello.c
+
+# .c 확장자명 컴파일 시키기
+gcc hello.c
+
+# 리스트를 전부 보여줘라
+ls -la
+
+# ls -la로 컴파일된 파일 찾아서 출력 (a.out 은 디폴트값)
+./a.out
+
+#컴파일된 파일 디폴트값 이름 변경 방법 (name에 원하는 파일 이름 작성)
+gcc -o name hello.c

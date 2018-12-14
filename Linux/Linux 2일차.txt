@@ -1,0 +1,110 @@
+톰캣 및 오라클 설치
+
+java -version
+#버전 확인 후 낮으면 삭제
+
+yum remove java*
+# Remove 7 Packages (+32 Dependent Packages) // Is this ok [y/N]:  명령어 나오면 y 누르고 엔터
+#Complete! 나오면 성공
+
+yum install java-1.8.0-openjdk-devel.x86_64
+
+rpm -qa java*jdk-devel
+javac -version
+#javac 1.8.0_191
+
+
+--------------------------------------------------------------------------------------------------------------------------
+
+##FireFox 실행후 jdk 검색 
+#Linux x64  jdk-8u191-linux-x64.tar.gz 다운 후 파일 다운 (가운데거 클릭)
+
+mkdir  /usr/local/jdk1.8
+# 내 폴더 -> 다운로드 -> jdk...tag.gz 마우스 우클릭 -> Extract Here -> 생성된 폴더 -> F2 누른뒤 이름변경 
+# -> 우클릭 파일이동  / -> usr -> local -> jdk1.8 이동 후 선택
+
+cd /usr/local/jdk1.8
+ls -la
+gedit /etc/profile
+# 후 편집기창 맨밑에
+export JAVA_HOME=/usr/local/jdk1.8
+
+export PATH=$PATH:$JAVA_HOME/bin
+
+export JAVA_OPTS="-Dfile.encoding=UTF-8"
+
+export CLASSPATH="."
+#추가
+
+source /etc/profiler
+reboot
+
+
+
+##FireFox에 tomcat 검색 후 tomcat.tag.gz 설치 (본인에 맞는 톰캣 버전)
+#다운로드 -> 압축해제 -> 폴더이름 tomcat으로 변경 -> / -> home -> centos(본인계정) 으로 폴더 이동
+
+/home/centos/tomcat/bin/startup.sh
+#/bin/tomcat-juli.jar    Tomcat started 뜨면 성공
+
+ifconfig
+#2번째 줄에 뜨는 inet 다음 아이피 192.168.85.128 복사(컨트롤+인설트) 후
+# 파이어폭스에 192.168.85.128:8080 입력
+# 고양이뜨면 성공
+
+firewall-cmd --permanent --add-port=8080/tcp
+#포트번호 방화벽 오픈
+
+firewall-cmd --reload
+#윈도우에서도 리눅스 ip:8080 톰캣으로 접속가능
+
+
+
+##ssh 설치진행
+
+yum install openssh*
+#ssh 설치
+
+firewall-cmd --permanent --add-port=22/tcp
+#포트번호 방화벽 오픈
+
+firewall-cmd --reload
+# success 시 성공
+
+/usr/sbin/sshd
+#실행
+
+
+
+##WINDOW OS에서 putty 설치 
+# putty 홈페이지에 가서 Alternative binary files에 있는 putty.exe 다운
+# putty 실행 후  리눅스 터미널에서 ifconfig 입력 후 inet ip 복사
+# putty의 Host Name(or IP address)에 아이피 입력,  Port 번호 : 22
+# Saved Sessions에 리눅스 서버 입력 후 Save
+# Open 클릭 후 오류 뜨면 '예" 누르기
+# 192.168.85.128 터미널 창이 뜨면 root 입력 후 비밀번호 입력  
+# root@localhost~로 변경되면 성공
+ 
+
+
+##window os에서 WINSCP 설치
+# winscp 홈페이지에 가서 winscp 설치
+# 후 디폴트 값으로 설치
+# 아니오 누른후 오픈
+# winscp가 실행되면 Linux IP 입력 후 로그인 버튼 누르기
+# 계정 입력 : root , 비밀번호 입력 : root 비밀번호 입력
+#Window의 Documents 폴더와 Linux의 /root/ 폴더가 뜨면 성공
+
+##winscp에서 war 파일 업로드
+# window에서 war 파일 있는 폴더로 이동
+# linux에서 /home/centos(user_name)/tomcat/webapps/ 로 업로드
+# linux로 가서 war 파일 압축 해제
+## 이클립스에서 war 파일 만드는법
+# project_name -> 우클릭 -> export -> WAR file 클릭
+
+
+## putty cmd 창에서 실행
+# /home/centos/tomcat/bin/shutdown.sh    톰캣 서버 셧다운 후
+# /home/centos/tomcat/bin/startup.sh   톰캣 서버 재실행
+# Window 홈페이지에서 192.168.85.128:8080 입력
+# 고양이나오면 성공 

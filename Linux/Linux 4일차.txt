@@ -1,0 +1,93 @@
+## 오라클 설치
+#Window 운영채제에서 
+# https://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/xe-prior-releases-5172097.html
+# 이동 후 Oracle Database 11gR2 Express Edition for Linux x64 다운
+#WINSCP로 LINUX로 이동 후 알집 해제 후  /usr/local/oracle 안으로 폴더 이동
+
+mkdir/usr/local/oracle
+cd /usr/local/oracle/Disk1
+rpm -ivh oracle-xe-11.2.0-1.0.x86_64.rpm
+
+# You must run '/etc/init.d/oracle-xe configure' as the root user to configure the database. 뜨면 성공
+
+/etc/init.d/oracle-xe configure
+8000 #포트번호 변경 (톰캣이랑 겹치기때문)
+#엔터클릭
+#비밀번호 입력
+initial configuration:1234/
+Confirm the password:1234
+
+/etc/init.d/oracle-xe start
+#오라클 실행
+
+firewall-cmd --add-port=1521/tcp --permanent
+firewall-cmd --reload
+# 방화벽 및 포트번호 오픈
+
+gedit /etc/profile
+# export ORACLE_HOME=/u01/app/oracle/product/11.2.0/xe
+# export ORACLE_SID=XE
+# export PATH=$ORACLE_HOME/bin:$PATH  #환경변수 추가
+source /etc/profile
+reboot
+
+sqlplus system/1234
+#SQL*Plus: Release 11.2.0.2.0 Production on Thu Nov 8 16:35:29 2018
+#Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+#Connected to:
+#Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+#뜨면 성공
+
+#윈도우 운영채제로 이동
+# SQL Developer 실행
+# system 계정 생성 / 비번 1234 / ip주소 : 리눅스서버ip
+# 워크시트 이동
+CREATE TABLESPACE BIT6
+DATAFILE '/home/centos/java.dbf' SIZE 50M
+AUTOEXTEND ON
+NEXT 10M
+MAXSIZE UNLIMITED;
+
+#리눅스 운영체제
+chmod 777 /home/centos
+#centos 디렉토리 권한 허용
+
+#윈도우 운영체제
+#SQL Developer
+CREATE TABLESPACE BIT6
+DATAFILE '/home/centos/java.dbf' SIZE 50M
+AUTOEXTEND ON
+NEXT 10M
+MAXSIZE UNLIMITED;
+
+SELECT * FROM user_tablespaces;
+# 재 입력 후 테이블 이름이 출력되면 성공
+
+CREATE USER RRPE IDENTIFIED BY 1234
+DEFAULT TABLESPACE BIT6;
+#유저 생성
+
+GRANT CONNECT, RESOURCE, DBA TO RRPE;
+#권한 부여
+
+#SQL Developer 에서 계정 새로 생성
+# 사용자계정 RRPE, 시스템계정 RRPE, 비밀번호 1234  ip주소 리눅스ip 로 생성
+ 
+create table member (
+id varchar2(50),
+pw varchar2(50)
+);
+
+# 윈도우 운영체제
+# 이클립스 실행 -> import -> war file -> browser -> war file 선택 -> next -> jar lib 전부 선택 -> finish
+# context.xml에서 계정이름이랑 비밀번호 본인 오라클로 변경
+# Linux_ex(변경할 프로젝트 이름) 우클릭 -> export -> browse -> 폴더선택 -> 
+# 본인에게 맞는 톰캣 서버 선택 -> finish
+# WINSCP 실행 후 Window에 war 파일을 Linux의 /home/centos/tomcat/webapps 에 업로드
+# 리눅스 운영체제
+/home/centos/tomcat/bin/shutdown.sh
+/home/centos/tomcat/bin/startup.sh
+#톰캣 서버 실행
+#구글 홈페이지에 http://192.168.85.128:8080/Linux_ex/  입력
+
+

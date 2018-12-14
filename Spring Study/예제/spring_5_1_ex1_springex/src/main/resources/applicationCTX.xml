@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- DI는 외부에서 데이터를 주입해서 사용하는 방식이다.
+방식으로는 생성자로 만드는 방식과
+게터 세터로 만드는 방식이 있다.
+ -->
+
+	<bean id="student1" class="com.javalec.ex.Student">
+		<constructor-arg>
+			<value>홍길동</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>10살</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>3학년</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>20번</value>
+		</constructor-arg>
+	</bean>
+	<!-- 위 밑 같은 방식임 -->
+	<bean id="student2" class="com.javalec.ex.Student">
+		<constructor-arg value="홍길동" />
+		<constructor-arg value="9살" />
+		<constructor-arg value="2학년" />
+		<constructor-arg value="10번" />
+	</bean>
+	
+	<bean id="studentInfo" class="com.javalec.ex.StudentInfo">
+		<constructor-arg>
+			<ref bean="student1" />
+		</constructor-arg>
+	</bean>
+	
+</beans>

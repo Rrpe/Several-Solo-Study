@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	
+	<select id="memberLogin" resultType="String"> <!-- 로그인  -->
+		SELECT MEMBER_ID FROM MEMBER WHERE MEMBER_ID = #{MEMBER_ID}
+	</select>
+	
+	<insert id="memberInsert"> <!-- 회원가입 -->
+		INSERT INTO MEMBER VALUES(#{MEMBER_ID}, #{MEMBER_PW}, #{MEMBER_NAME}, #{MEMBER_AGE}, #{MEMBER_PHONE}, #{MEMBER_EMAIL})
+	</insert>
+	
+	<select id="memberList" resultType="com.userboard.js.dto.MemberDTO"> <!-- 회원 리스트 -->
+		SELECT * FROM MEMBER
+	</select>
+	
+	<select id="memberView" resultType="com.userboard.js.dto.MemberDTO"> <!-- 회원정보 보기 -->
+		SELECT * FROM MEMBER WHERE MEMBER_ID = #{MEMBER_ID}
+	</select>
+	
+	<delete id="memberDelete"> <!-- 회원삭제 -->
+		DELETE FROM MEMBER WHERE MEMBER_ID = #{MEMBER_ID}
+	</delete>
+	
+	<select id="boardList" resultType="com.userboard.js.dto.BoardDTO">
+		SELECT * FROM BOARD
+	</select>
+
+	<insert id="boardWrite">
+		INSERT INTO BOARD VALUES ( #{BOARD_NAME, jdbcType=VARCHAR}, #{BOARD_PASS, jdbcType=VARCHAR}, #{BOARD_SUBJECT, jdbcType=VARCHAR}, #{BOARD_CONTENT, jdbcType=VARCHAR}, SYSDATE)
+	</insert>
+</mapper>

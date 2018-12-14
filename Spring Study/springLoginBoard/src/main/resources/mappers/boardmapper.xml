@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+	
+	<insert id="insertBoard" >
+		insert into SPRINGBOARD (BID, ID, BTITLE, BCONTENT)
+		values (SPRINGBOARD_SEQ.nextval, #{ID}, #{BTITLE}, #{BCONTENT})
+	</insert>
+
+	<select id="selectBoardList" resultType="we.can.dothis.dto.BoardDTO">
+		select * from SPRINGBOARD
+	</select>
+	
+	<select id="selectBoardDetail" resultType="we.can.dothis.dto.BoardDTO">
+		select * from SPRINGBOARD where BID = #{BID}
+	</select>
+	
+	<delete id="deleteBoard">
+		delete from SPRINGBOARD where BID = #{BID}
+	</delete>
+	
+	<update id="modifyBoard">
+		update SPRINGBOARD set BTITLE = #{BTITLE}, BCONTENT = #{BCONTENT} where BID = #{BID}
+	</update>
+	
+</mapper>
